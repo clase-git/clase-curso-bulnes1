@@ -1,11 +1,12 @@
-<<<<<<< HEAD
+
+Generación de conflictos prueba
+
+
 Jajan't git violence :O
-=======
+
 Generación de conflictos
 
->>>>>>> 3b928c795c364cb157e7b64c6fa2c5109142a828
-
-
+bcn
 
 hola
 
