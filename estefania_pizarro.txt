@@ -1,5 +1,9 @@
+<<<<<<< HEAD
+Jajan't git violence
+=======
 Generación de conflictos
 
+>>>>>>> 3b928c795c364cb157e7b64c6fa2c5109142a828
 
 
 
@@ -12,12 +16,7 @@ hola
 chao
 
 
+
+
+
 hola
-
-
-
-
-
-Bye
-
-
