@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-Jajan't git violence
+Jajan't git violence :O
 =======
 Generación de conflictos
 
