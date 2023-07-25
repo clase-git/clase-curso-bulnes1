@@ -2,4 +2,4 @@
 hola
 blabla hola
 
-chao blabla
+chao blabla error fatal
