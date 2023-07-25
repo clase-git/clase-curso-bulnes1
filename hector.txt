@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 Linea 1 
 Línea 2
 Linea 3
+=======
+Cambio 1
+Cambio 2
+
+
+>>>>>>> HO
 
 
 hola
