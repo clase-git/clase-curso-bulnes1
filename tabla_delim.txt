@@ -1,4 +1,0 @@
-id , nombre
-1 , pedro
-2, juan
-3, diego
