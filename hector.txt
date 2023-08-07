@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Linea 1 
 Línea 2
 Linea 3
@@ -8,7 +9,11 @@ Cambio 2
 
 
 >>>>>>> HO
+=======
+
+
+
+>>>>>>> fd9441ec7823a97f2fb47cff4fd1e71c7240316b
 
 
 hola
-intento2
