@@ -113,3 +113,16 @@ df_addresse <- df %>%
 
 # Mostramos el dataframe con la nueva columna "dirección"
 print(df_addresse)
+
+
+#Función arreglo de dirección por casos NULL
+arreglo_address <- function(street, number, apartment, dirección) {
+  
+  dirección <- str_replace(dirección, ", depto. NULL", "")
+  
+}
+
+df_addresse_arreglada <- df_addresse %>% 
+  mutate(dirección_arreglada = arreglo_address(street, number, apartment, dirección))
+
+print(df_addresse_arreglada)
