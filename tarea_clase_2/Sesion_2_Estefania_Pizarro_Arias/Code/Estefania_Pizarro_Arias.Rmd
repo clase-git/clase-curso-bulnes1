@@ -1,0 +1,46 @@
+---
+title: "Gráficas de ocupados y no ocupados trimestrales año 2022 (ENE)"
+author: "Estefanía Pizarro Arias"
+date: "2023-08-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+```{r cars, include=FALSE}
+in_dir <- "D:/Estefania/Capacitaciones/R_intermedio_INE/Tareas/Sesion_2/"
+grafica <- readRDS(file = paste0(in_dir,"Data/Out/Graficas_trimestrales.rds"))
+```
+
+## Gráficas
+
+## Trimestres {.tabset}
+
+### Primer trimestre
+
+```{r, echo=FALSE}
+plot(grafica[[1]])
+```
+
+### Segundo trimestre
+
+```{r, echo=FALSE}
+plot(grafica[[2]])
+```
+
+### Tercer trimestre
+
+```{r,echo=FALSE}
+plot(grafica[[3]])
+```
+
+### Cuarto trimestre
+```{r,echo=FALSE}
+plot(grafica[[4]])
+```
+
+
