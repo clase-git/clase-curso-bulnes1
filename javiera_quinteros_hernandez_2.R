@@ -86,3 +86,4 @@ nested_map(v1 = 1:3, v2 = 5:7)
 # No logré hacerlo con vectores de distinto largo, me falta el 18, 28 y 38
 
 
+
