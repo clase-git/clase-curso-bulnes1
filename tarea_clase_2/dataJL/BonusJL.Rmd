@@ -1,0 +1,82 @@
+---
+title: "Datos Encuesta Nacional de Empleo (ENE)"
+author: 'Redactor: Julio Luna'
+date: "2023-08-15"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r data, include=FALSE}
+dir <- "C:/Users/Julio/Documents/Curso_R/R_intermedio/clase_3/clase_3"
+
+
+```
+
+```{r librerias, include=FALSE}
+# Bonus -------------------------------------------------------------------
+library(tidyverse)
+library(dplyr)
+library(readxl)
+library(janitor)
+library(ggplot2)
+
+
+
+#Carga tablas ocupados y desocupados 2022
+tab_ocupados <- read_excel(path = paste0(dir,"/dataJL/ocupados.xlsx"), sheet = "Hoja1")
+tab_desocupados <- read_excel(path = paste0(dir,"/dataJL/desocupados.xlsx"), sheet = "Hoja1")
+
+#Renombra columnas
+tab_ocupados <- tab_ocupados %>% 
+  rename_all(~paste("ocu_", ., sep = ""))
+tab_desocupados <- tab_desocupados %>% 
+  rename_all(~paste("des_", ., sep = ""))
+
+#Se unen los dataframes
+tab_des_ocu <- cbind(tab_ocupados, tab_desocupados)
+
+#se limpian los nombres
+clean_tab_des_ocu <- tab_des_ocu %>% 
+  clean_names()
+
+#Crea columna de trimestres
+build_trimestres <- function(ocu_region) {
+    #cambios
+  ocu_region <- str_replace(ocu_region, "2022 ene-mar", "T1 ene-mar")
+  ocu_region <- str_replace(ocu_region, "2022 abr-jun", "T2 abr-jun")
+  ocu_region <- str_replace(ocu_region, "2022 jul-sep", "T3 jul-sep")
+  ocu_region <- str_replace(ocu_region, "2022 oct-dic", "T4 oct-dic")
+
+}
+clean_tab_des_ocu <- clean_tab_des_ocu %>%
+  mutate(trimestres = build_trimestres(ocu_region))
+
+
+
+# Transformar el dataframe de formato ancho a largo para ggplot
+data_long <- pivot_longer(clean_tab_des_ocu, cols = c(ocu_total_pais, des_total_pais), names_to = "Empleo", values_to = "Total")
+
+# Crear el gráfico utilizando ggplot2
+p <- ggplot(data_long, aes(x = trimestres, y = Total, fill = Empleo)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Total de Ocupados y Desocupados 2022", x = "Trimestres", y = "Total personas (miles)") +
+  scale_fill_manual(values = c("ocu_total_pais" = "blue", "des_total_pais" = "pink"))
+
+# Mostrar el gráfico
+#print(p)
+```
+
+## Totales a Nivel Nacional 
+
+(Ambos sexos)
+
+```{r p, echo=FALSE}
+print(p)
+```
+
+# 
