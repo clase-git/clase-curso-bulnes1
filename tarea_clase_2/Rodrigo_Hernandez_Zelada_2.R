@@ -76,3 +76,36 @@ nested_map <- function(v1, v2) {
 # Ejemplos de uso
 nested_map(1:3, 5:8)
 nested_map(1:3, 2:4)
+
+
+
+
+
+####   B O N U S  ####
+#Lo intenté pero me faltó tiempo 
+
+
+install.packages("haven")
+library(haven)
+
+#Intenté con archivos .csv pero no me dió resultado
+
+trimestre_files <- c("D:/Descargas/ene-2022-02-efm.dta", "D:/Descargas/ene-2022-05-amj.dta","D:/Descargas/ene-2022-08-jas.dta", "D:/Descargas/ene-2022-11-ond.dta")
+
+trimestre_list <- map(trimestre_files, ~ read_dta(.x))
+
+##Cree la función solicitada
+
+get_employment_sample <- function(dataframe) {
+  result <- dataframe %>%
+    summarise(
+      ocupados = sum(activ == 1, na.rm = TRUE),
+      no_ocupados = sum(activ != 1, na.rm = TRUE)
+    )
+  return(result)
+}
+
+resultados_por_trimestre <- map(trimestre_list, get_employment_sample)
+
+
+print(resultados_por_trimestre)
