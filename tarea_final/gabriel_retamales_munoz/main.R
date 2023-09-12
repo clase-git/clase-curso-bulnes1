@@ -9,7 +9,7 @@
 
 if(!require("dplyr")) install.packages("dplyr")
 if(!require("purrr")) install.packages("purrr")
-if (!require("data.table")) install.packages("data.table")
+if(!require("data.table")) install.packages("data.table")
 
 suppressPackageStartupMessages({
   library(purrr)
@@ -20,7 +20,8 @@ suppressPackageStartupMessages({
 #Funciones
 source("./functions.R")
 
-
+#Directorio de destino
+directorio <- "./data"
 
 # Ejercicio 1 --------------------------------------------------------------------
 
@@ -31,9 +32,6 @@ urls <- c("https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingr
           "https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/csv_esi/2017/1esi-2017---personas.csv?sfvrsn=d556c5a1_6&download=true",
           "https://www.ine.cl/docs/default-source/encuesta-suplementaria-de-ingresos/bbdd/csv_esi/2016/esi-2016---personas.csv?sfvrsn=81beb5a_6&download=true"
 )
-
-#Directorio de destino
-directorio <- "./data"
 
 # Mapeo para descargar datos
 
@@ -99,5 +97,22 @@ print(tabla4)
 
 if(!require("microbenchmark")) install.packages("microbenchmark")
 library(microbenchmark)
+
+#Prueba 1: Lista de tablas con purrr
+microbenchmark(
+  purrr_mean = mean(map_dbl(datos_esi, ~mean(.x$ing_t_p))),
+  times = 5
+)
+
+# Prueba 3: Lista de tablas con de purrr y data.table
+microbenchmark(
+  purrr_dt_mean = mean(map_dbl(datos_esi, ~mean(.x$ing_t_p))),
+  times = 5
+)
+
+
+#Prueba 2 y 4 no me salieron :')
+#
+#
 
 

@@ -12,9 +12,22 @@ download_esi <- function(url, file_name, directory) {
   full_url <- url
   full_path <- file.path(directory, file_name)
   
-  # Verificamos para no descargar 2 veces el archivo.
+  if (!dir.exists(directory)) {
+    dir.create(directory)
+  }
+  
+  # Verificamos para no descargar 2 veces el archivo y además chequea si esque el link está roto.
   if (!file.exists(full_path)) {
-    download.file(full_url, full_path, mode = "wb")
+    tryCatch(
+      {
+        download.file(full_url, full_path, mode = "wb")
+        cat(paste("Archivo descargado:", file_name, "\n"))
+      },
+      error = function(e) {
+        cat(paste("Verificar que la ruta esté correctamente escrita, 
+                  Error al descargar el archivo:", file_name, "(", e$message, ")\n"))
+      }
+    )
   } else {
     # Si ya existe, notificamos.
     cat(paste("El archivo", file_name, "ya existe en la carpeta", directory, "\n"))
