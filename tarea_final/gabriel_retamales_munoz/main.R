@@ -51,14 +51,16 @@ datos_esi <- read_esi_data(directorio)
 # Ejercicio 3 -------------------------------------------------------------
 
 
+csv_nombres <- list.files(directorio, pattern = "\\.csv$", full.names = TRUE)
+
 # Extraer el año de los nombres de archivo y crear la tabla
-tabla1 <- map2_df(esi_data_list, csv_files, ~ {
+tabla1 <- map2_df(datos_esi, csv_nombres, ~ {
   year <- substr(basename(.y), 5, 8)
   summarise(.x, version = paste0("esi_", year), n_personas = n(), n_hogares = n_distinct(id_identificacion))
 })
 
 # Crear la tabla con estadísticas del factor de expansión
-tabla2 <- map2_df(esi_data_list, csv_files, ~ {
+tabla2 <- map2_df(datos_esi, csv_nombres, ~ {
   year <- substr(basename(.y), 5, 8)
   summarise(.x, version = paste0("esi_", year), 
             min_fact = min(fact_cal_esi), max_fact = max(fact_cal_esi), 
@@ -69,7 +71,7 @@ tabla2 <- map2_df(esi_data_list, csv_files, ~ {
 })
 
 # Crear la tabla con el número de estratos con un solo conglomerado
-tabla3 <- map2_df(esi_data_list, csv_files, ~ {
+tabla3 <- map2_df(datos_esi, csv_nombres, ~ {
   year <- substr(basename(.y), 5, 8)
   num_estratos_unidad <- sum(table(.x$estrato) == 1)
   data.frame(version = paste0("esi_", year), num_estratos_unidad)
@@ -77,7 +79,7 @@ tabla3 <- map2_df(esi_data_list, csv_files, ~ {
 
 
 # Crear la tabla con estadísticas de ingresos del trabajo principal
-tabla4 <- map2_df(esi_data_list, csv_files, ~ {
+tabla4 <- map2_df(datos_esi, csv_nombres, ~ {
   year <- substr(basename(.y), 5, 8)
   summarise(.x, version = paste0("esi_", year), 
             min_ingresos = min(ing_t_p), max_ingresos = max(ing_t_p), 
