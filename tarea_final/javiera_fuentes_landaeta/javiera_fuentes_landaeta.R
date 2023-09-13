@@ -79,7 +79,7 @@ map(esi, tabla_3)
 
 tabla_4 <- function (esi) {
   esi %>% select(version, idrph, ing_t_p)
-  group_by(version, idrph) %>% 
+    group_by(version, idrph) %>% 
     summarise(mínimo = min(ing_t_p), máximo = max(ing_t_p),
               media = mean(ing_t_p), mediana = median (ing_t_p),
               percentil_10 = quantile(ing_t_p, 0.1), 
@@ -87,4 +87,7 @@ tabla_4 <- function (esi) {
 }
 
 map(esi, tabla_4)
+  
+  
 
+  
