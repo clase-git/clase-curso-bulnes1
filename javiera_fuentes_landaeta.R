@@ -50,13 +50,13 @@ esi <-map(files,read_esi_data) %>%
 
 #Ejercicio 3
 
-esi <- map(esi, ~mutate(.,version=paste0("esi_",ano_encuesta))
+esi <- map(esi, ~mutate(.,version=paste0("esi_",ano_encuesta)))
 
 tabla_1 <- function (esi) {
   esi %>% select(version, idrph, id_identificacion)
 }
 
-map(esi, tabla_1) 
+map(esi, tabla_1)
 
 tabla_2 <- function (esi){
   esi %>% select(version, idrph, id_identificacion) %>% 
@@ -64,7 +64,7 @@ tabla_2 <- function (esi){
     summarise(mínimo = min(fact_cal_esi), máximo = max(fact_cal_esi),
               media = mean(fact_cal_esi), mediana = median (fact_cal_esi),
               percentil_10 = quantile(fact_cal_esi, 0.1), 
-              percentil_90 = (fact_cal_esi, 0.9))
+              percentil_90 = quantile(fact_cal_esi, 0.9))
 }
 
 map(esi, tabla_2)
@@ -83,12 +83,10 @@ tabla_4 <- function (esi) {
     summarise(mínimo = min(ing_t_p), máximo = max(ing_t_p),
               media = mean(ing_t_p), mediana = median (ing_t_p),
               percentil_10 = quantile(ing_t_p, 0.1), 
-              percentil_90 = (ing_t_p, 0.9))
+              percentil_90 = quantile(ing_t_p, 0.9))
 }
 
 map(esi, tabla_4)
-
-  
   
   
 
